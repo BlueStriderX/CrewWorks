@@ -13,8 +13,8 @@ public class structure {
   public static Faction faction = player.getfaction;
 
   @EventHandler //starmade api equivalent?
-  public static void onBlockPlace(EventHandler event) {
-    if (block.getID = blocks.crewModule) {
+  public static void onBlockPlace(EventHandler event, Block block) {
+    if (block == blocks.crewModule) {
       if (entity.type != "ship" || entity.type != "station") {
         MessageBox placeError = new MessageBox;
         placeError.setText("You can only put crew modules on ships or stations!", center)
@@ -24,10 +24,5 @@ public class structure {
         return;
       }
     }
-    createNewCrewArea(entity, faction);
-  }
-
-  public static void createNewCrewArea(Entity entity, Faction faction) {
-    //register space in a default 3x3 area directly behind the crew module
   }
 }
