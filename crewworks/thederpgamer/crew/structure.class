@@ -12,13 +12,6 @@ public class structure {
   public static Player player = new player();
   public static Faction faction = player.getfaction;
 
-  public static int[] point1 = new int[3];
-  public static int[] point2 = new int[3];
-
-  public static void main() {
-
-  }
-
   @EventHandler //starmade api equivalent?
   public static void onBlockPlace(EventHandler event) {
     if (block.getID = blocks.crewModule) {
@@ -36,21 +29,5 @@ public class structure {
 
   public static void createNewCrewArea(Entity entity, Faction faction) {
     //register space in a default 3x3 area directly behind the crew module
-  }
-
-  /** Doesn't use 2 points of space, might implement as a config option in future
-  public static void changeCrewAreaDimensions(int x, int y, int z) {
-    //change crew area dimensions by x, y, z
-    crewAreaX = x;
-    crewAraeY = y;
-    crewAreaZ = z;
-  }
-
-  public static void changeCrewAreaOffset(int x, int y, int z) {
-    //change crew area offset by x, y, z
-  }
-  **/
-  public static void spaceCheck(int point1[0], int point1[1], int point1[2], int point2[0], int point2[1], int point2[2],) {
-    //check for blocks within 2 points of space on an entity
   }
 }
