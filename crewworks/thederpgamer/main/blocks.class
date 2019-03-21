@@ -1,0 +1,24 @@
+package crewworks.thederpgamer.main;
+
+import main.main;
+//import block api?
+
+//remember to add class declaration
+
+public static void blocks() { //custom blocks
+  //crewModule
+  Block crewModule = new block();
+  crewModule.setDisplayName("Crew Module");
+  crewModule.setModel(false);
+  crewModule.setTexture("resources/textures/blocks/crewModule.png");
+
+  Block crewAreaPoint = new block();
+  crewAreaPoint.setDisplayName("Crew Area Point");
+  crewAreaPoint.setModel(false);
+  crewAreaPoint.setTexture("resources/textures/blocks/crewAreaPoint.png");
+
+  Block pathBlock = new block();
+  pathBlock.setDisplayName("Path Block");
+  pathBlock.setModel(false);
+  pathBlock.setTexture("resources/textures/blocks/pathBlock.png");
+}
