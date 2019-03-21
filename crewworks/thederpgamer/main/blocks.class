@@ -3,22 +3,32 @@ package crewworks.thederpgamer.main;
 import main.main;
 //import block api?
 
-//remember to add class declaration
+public class blocks {
 
-public static void blocks() { //custom blocks
-  //crewModule
-  Block crewModule = new block();
-  crewModule.setDisplayName("Crew Module");
-  crewModule.setModel(false);
-  crewModule.setTexture("resources/textures/blocks/crewModule.png");
+  public static void blocks() { //custom blocks
+    //crewModule
+    Block crewModule = new block();
+    crewModule.setDisplayName("Crew Module");
+    crewModule.setModel(false);
+    crewModule.setTexture("resources/textures/blocks/crewModule.png");
+    crewModule.setInteractable(true);
+    crewModule.setType(master);
+    crewModule.setSlaveBlock(blocks.crewAreaPoint, blocks.pathBlock);
 
-  Block crewAreaPoint = new block();
-  crewAreaPoint.setDisplayName("Crew Area Point");
-  crewAreaPoint.setModel(false);
-  crewAreaPoint.setTexture("resources/textures/blocks/crewAreaPoint.png");
+    Block crewAreaPoint = new block();
+    crewAreaPoint.setDisplayName("Crew Area Point");
+    crewAreaPoint.setModel(false);
+    crewAreaPoint.setTexture("resources/textures/blocks/crewAreaPoint.png");
+    crewAreaPoint.setInteractable(false);
+    crewAreaPoint.setType(slave);
+    crewAreaPoint.setMasterBlock(blocks.crewModule);
 
-  Block pathBlock = new block();
-  pathBlock.setDisplayName("Path Block");
-  pathBlock.setModel(false);
-  pathBlock.setTexture("resources/textures/blocks/pathBlock.png");
+    Block pathBlock = new block();
+    pathBlock.setDisplayName("Path Block");
+    pathBlock.setModel(false);
+    pathBlock.setTexture("resources/textures/blocks/pathBlock.png");
+    pathBlock.setInteractable(false);
+    pathBlock.setType(slave);
+    pathBlock.setMasterBlock(blocks.crewModule);
+  }
 }
