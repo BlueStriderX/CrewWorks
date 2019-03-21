@@ -3,4 +3,4 @@ MODVERSION: 0.1
 MODAUTHOR: TheDerpGamer
 MODDESCRIPTION:
   A versatile crew mod for StarMade.
-MAINCLASS: crewworks.main.main;
+MAINCLASS: crewworks.thederpgamer.main.main;
