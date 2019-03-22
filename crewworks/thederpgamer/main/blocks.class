@@ -3,35 +3,34 @@ package crewworks.thederpgamer.main;
 import thederpgamer.main.main;
 //import block api?
 
-public class blocks {
+public class blocks extends Block {
 
-  public static void blocks() extends Block { //custom blocks
-    //crewModule
-    Block crewModule = new block();
-    crewModule.setDisplayName("Crew Module");
-    crewModule.setModel(false);
-    crewModule.setPhysical(true); //nonphysical blocks can only be seen in build mode and can be passed through by entities
-    crewModule.setTexture("resources/textures/blocks/crewModule.png");
-    crewModule.setInteractable(true);
-    crewModule.setType(master);
-    crewModule.setSlaveBlock(blocks.crewArea, blocks.pathBlock);
+  public static void main() {
+    Block CREWMODULE = new block();
+    CREWMODULE.setDisplayName("Crew Module");
+    CREWMODULE.setModel(false);
+    CREWMODULE.setPhysical(true); //nonphysical blocks can only be seen in build mode and can be passed through by entities
+    CREWMODULE.setTexture("resources/textures/blocks/crewModule.png");
+    CREWMODULE.setInteractable(true);
+    CREWMODULE.setType(master);
+    CREWMODULE.setSlaveBlock(blocks.CREWAREA , blocks.PATHBLOCK);
 
-    Block crewArea = new block();
-    crewArea.setDisplayName("Crew Area");
-    crewArea.setModel(false);
-    crewArea.setPhysical(false); //nonphysical blocks can only be seen in build mode and can be passed through by entities
-    crewArea.setTexture("resources/textures/blocks/crewArea.png");
-    crewArea.setInteractable(false);
-    crewArea.setType(slave);
-    crewArea.setMasterBlock(blocks.crewModule);
+    Block CREWAREA = new block();
+    CREWAREA .setDisplayName("Crew Area");
+    CREWAREA .setModel(false);
+    CREWAREA .setPhysical(false); //nonphysical blocks can only be seen in build mode and can be passed through by entities
+    CREWAREA .setTexture("resources/textures/blocks/crewArea.png");
+    CREWAREA .setInteractable(false);
+    CREWAREA .setType(slave);
+    CREWAREA .setMasterBlock(blocks.CREWMODULE);
 
-    Block pathBlock = new block();
-    pathBlock.setDisplayName("Path Block");
-    pathBlock.setModel(false);
-    pathBlock.setPhysical(false); //nonphysical blocks can only be seen in build mode and can be passed through by entities
-    pathBlock.setTexture("resources/textures/blocks/pathBlock.png");
-    pathBlock.setInteractable(false);
-    pathBlock.setType(slave);
-    pathBlock.setMasterBlock(blocks.crewModule);
+    Block PATHBLOCK = new block();
+    PATHBLOCK.setDisplayName("Path Block");
+    PATHBLOCK.setModel(false);
+    PATHBLOCK.setPhysical(false); //nonphysical blocks can only be seen in build mode and can be passed through by entities
+    PATHBLOCK.setTexture("resources/textures/blocks/pathBlock.png");
+    PATHBLOCK.setInteractable(false);
+    PATHBLOCK.setType(slave);
+    PATHBLOCK.setMasterBlock(blocks.CREWMODULE);
   }
 }
