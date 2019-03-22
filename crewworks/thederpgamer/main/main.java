@@ -1,8 +1,6 @@
 package crewworks.thederpgamer.main;
 
-import thederpgamer.crews.structure;
-
-public class main {
+public class Main {
 
   public static file mod = modinfo.json;
   public static this.MODNAME = mod.MODNAME;
