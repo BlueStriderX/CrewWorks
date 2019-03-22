@@ -25,7 +25,7 @@ public class tools {
           int currentBlocky = block1.gety();
           int currentBlockz = block1.getz();
           Location currentBlockLocation = currentBlockx, currentBlocky, currentBlockz;
-          currentblock = entity.getLocation(currentBlockx,currentBlocky, currentBlockz);
+          currentblock = entity.getBlockAt(currentBlockx,currentBlocky, currentBlockz);
           if(blocks.contains(currentblock.getBlock)) {
             return true;
           }
