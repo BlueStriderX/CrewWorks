@@ -1,6 +1,6 @@
 package crewworks.thederpgamer.main;
 
-import main.main;
+import thederpgamer.main.main;
 //import block api?
 
 public class blocks {
