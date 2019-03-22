@@ -16,13 +16,13 @@ public class crewBlocks extends Block {
     CREWMODULE.setSlaveBlock(CREWAREA , PATHBLOCK);
 
     Block CREWAREA = new Block();
-    CREWAREA .setDisplayName("Crew Area");
-    CREWAREA .setModel(false);
-    CREWAREA .setPhysical(false); //nonphysical blocks can only be seen in build mode and can be passed through by entities
-    CREWAREA .setTexture("resources/textures/blocks/crewArea.png");
-    CREWAREA .setInteractable(false);
-    CREWAREA .setType(slave);
-    CREWAREA .setMasterBlock(CREWMODULE);
+    CREWAREA.setDisplayName("Crew Area");
+    CREWAREA.setModel(false);
+    CREWAREA.setPhysical(false); //nonphysical blocks can only be seen in build mode and can be passed through by entities
+    CREWAREA.setTexture("resources/textures/blocks/crewArea.png");
+    CREWAREA.setInteractable(false);
+    CREWAREA.setType(slave);
+    CREWAREA.setMasterBlock(CREWMODULE);
 
     Block PATHBLOCK = new Block();
     PATHBLOCK.setDisplayName("Path Block");
