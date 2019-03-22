@@ -1,9 +1,9 @@
 package crewworks.thederpgamer.main;
 
-import thederpgamer.main.main;
+import thederpgamer.main.Main;
 //import block api
 
-public class crewBlocks extends Block {
+public class CrewBlocks extends Block {
 
   public static void main() {
     Block CREWMODULE = new Block();
