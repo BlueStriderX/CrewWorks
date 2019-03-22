@@ -1,6 +1,6 @@
 package crewworks.thederpgamer.main;
 
-import crews.structure;
+import thederpgamer.crews.structure;
 
 public class main {
 
@@ -11,17 +11,5 @@ public class main {
   public static this.MODDESCRIPTION = mod.MODDESCRIPTION;
 
   public static void onInitialize() {
-    System.out.println("CrewWorks is loading!");
-    try {
-      initialize();
-    } catch(Exception e) {
-      System.out.println("CrewWorks failed to load!")
-      e.printStackTrace(System.out);
-      System.out.println("Disabling CrewWorks...")
-    }
-  }
-
-  public static void initialize() {
-    structure.main;
   }
 }
