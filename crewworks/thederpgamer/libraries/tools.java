@@ -1,6 +1,6 @@
 package crewworks.thederpgamer.libraries;
 
-//import block api?
+import thederpgamer.libraries.Block;
 
 public class Tools {
   public static getDistance(Block block1, Block block2) {
