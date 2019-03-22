@@ -1,32 +1,117 @@
 package crewworks.thederpgamer.main;
 
+import java.util.ArrayList;
 import thederpgamer.main.tools;
 import thederpgamer.crews.structure;
-import java.util.ArrayList;
+//import block api?
 
 public class crewHandler {
-  public static void npcMove(Entity npc, ) {
+  public static void npcMove(Entity npc) {
     //makes an npc move along a path
     ArrayList<Location> pathBlocks = new ArrayList<Location>();
     for(x = 0, x == pathBlocks.size(), x++) {
       Location currentBlock = pathBlocks.get(x);
-      if(npc.getBlockAt(currentBlock) == Blocks.) {
-        
-      }
       npc.moveTo(currentBlock);
     }
   }
 
   public static void npcActivate(Entity npc, Block target) {
     //makes an npc activate a logic block
-    Location npcLocation = npc.getLocation;
+    Location npcLocation = npc.getLocation();
     Block block1 = getBlockAt(npcLocation);
     Block block2 = target;
     float distance = tools.getDistance(block1, block2);
+    Entity entity = target.getEntity();
     if(distance > 3) {
       npc.sendControllerMessage("I can't reach the target!");
       return;
     }
-    target.activate();
+    if(entity.getBlockAt(target) == Blocks.ACTIVATION_MODULE || entity.getBlockAt(target) == Blocks.BUTTON || entity.getBlockAt(target) == Blocks.SMALL_ACTIVATION_MODULE || entity.getBlockAt(target) == Blocks.SMALL_BUTTON) {
+      target.setActivated(true);
+    }
+  }
+
+  public static void npcAction(Entity npc, String action, Block target, float percent, String buff) {
+    //makes an npc perform a specified action
+    if(action == "ACTIVATE_LOGIC") {
+      npcMove(npc);
+      npcActivate(npc, target);
+    } else if(action == "BUFF_SYSTEM")  {
+      npcMove(npc);
+      npcBuffSystem(npc, target, percent);
+    } else if(action == "BUFF_WEAPON") {
+      npcMove(npc);
+      npcBuffWeapon(npc, target, percent, buff);
+    } else if(action == "BUFF_TURRET") {
+      npcMove(npc);
+      npcBuffTurret(npc, target, percent, buff);
+    }
+  }
+
+  public static void npcBuffSystem(Entity npc, Block target, float percent) {
+    //makes an npc buff a specified system
+    Entity entity = target.getEntity();
+    Block block = entity.getBlockAt(target);
+    if(target == Blocks.POWER_REACTOR) {
+      entity.effect.addPowerRegen(percent);
+      entity.effect.addPowerCapacity(percent * -0.25);
+    } else if(target == Blocks.POWER_STABILIZER) {
+      entity.effect.addPowerCapacity(percent);
+      entity.effect.addPowerRegen(percent * -0.25);
+    } else if(target == Blocks.SHIELD_REGENERATOR) {
+      entity.effect.addShieldRegen(percent);
+      entity.effect.addShieldCapacity(percent * -0.25);
+    } else if(target == Blocks.SHIELD_CAPACITOR) {
+      entity.effect.addShieldCapacity(percent);
+      entity.effect.addShieldRegen(percent * -0.25);
+    } else {
+      npc.sendControllerMessage("There's nothing I can do with this system!");
+    }
+  }
+  public static void npcBuffWeapon(Entity npc, Block target, float percent, String buff) {
+    //makes an npc buff a specified weapon
+    Entity entity = target.getEntity();
+    Block block = entity.getBlockAt(target);
+    if(target == Blocks.CANNON_COMPUTER) {
+      if(buff == "BUFF_RELOAD") { //buff cannon reload speed
+        weapon.effect.addReloadSpeed(percent);
+        weapon.effect.addDamage(percent * -0.25);
+      } else if(buff == "BUFF_DAMAGE") { //buff cannon damage
+        weapon.effect.addDamage(percent);
+        weapon.effect.addProjectileSpeed(percent * -0.25);
+      } else if(buff == "BUFF_SPEED") {
+        weapon.effect.addProjectileSpeed(percent); // buff cannon projectile speed
+        weapon.effect.addDamage(percent * -0.25)
+      }
+    } else if(target == Blocks.BEAM_COMPUTER) {
+      if(buff == "BUFF_RELOAD") {
+        weapon.effect.addReloadSpeed(percent); //buff beam reload speed
+        weapon.effect.addDamage(percent * -0.25);
+      } else if(buff == "BUFF_DAMAGE") { //buff beam damage
+        weapon.effect.addDamage(percent);
+        weapon.effect.addRange(percent * -0.25);
+      } else if(buff == "BUFF_RANGE") { //buff beam range
+        weapon.effect.addRange(percent);
+        weapon.effect.addDamage(percent * -0.25)
+      }
+    } else if(target == Blocks.MISSILE_COMPUTER) {
+      if(buff == "BUFF_RELOAD") { //buff missile reload speed
+        weapon.effect.addReloadSpeed(percent);
+        weapon.effect.addDamage(percent * -0.25);
+      } else if(buff == "BUFF_DAMAGE") { //buff missile damage
+        weapon.effect.addDamage(percent);
+        weapon.effect.addProjectileSpeed(percent * -0.25);
+      } else if(buff == "BUFF_SPEED") { //buff missile projectile speed
+        weapon.effect.addProjectileSpeed(percent);
+        weapon.effect.addDamage(percent * -0.25)
+      }
+    } else {
+      npc.sendControllerMessage("There's nothing I can do with this system!");
+    }
+  }
+
+  public static void npcBuffTurret(Entity npc, Block target) {
+    //makes an npc buff a specified turret
+
   }
 }
