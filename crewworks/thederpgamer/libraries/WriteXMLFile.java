@@ -7,18 +7,13 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 public class WriteXMLFile {
-
-	public static void main(String argv[]) {
-
-	  try {
-
-		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+	public static void main() {
+    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 
 		// root elements
@@ -35,8 +30,6 @@ public class WriteXMLFile {
 		attr.setValue("1");
 		staff.setAttributeNode(attr);
 
-		// shorten way
-		// staff.setAttribute("id", "1");
 
 		// firstname elements
 		Element firstname = doc.createElement("firstname");
