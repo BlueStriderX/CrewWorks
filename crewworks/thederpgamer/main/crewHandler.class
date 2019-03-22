@@ -1,0 +1,32 @@
+package crewworks.thederpgamer.main;
+
+import thederpgamer.main.tools;
+import thederpgamer.crews.structure;
+import java.util.ArrayList;
+
+public class crewHandler {
+  public static void npcMove(Entity npc, ) {
+    //makes an npc move along a path
+    ArrayList<Location> pathBlocks = new ArrayList<Location>();
+    for(x = 0, x == pathBlocks.size(), x++) {
+      Location currentBlock = pathBlocks.get(x);
+      if(npc.getBlockAt(currentBlock) == Blocks.) {
+        
+      }
+      npc.moveTo(currentBlock);
+    }
+  }
+
+  public static void npcActivate(Entity npc, Block target) {
+    //makes an npc activate a logic block
+    Location npcLocation = npc.getLocation;
+    Block block1 = getBlockAt(npcLocation);
+    Block block2 = target;
+    float distance = tools.getDistance(block1, block2);
+    if(distance > 3) {
+      npc.sendControllerMessage("I can't reach the target!");
+      return;
+    }
+    target.activate();
+  }
+}
