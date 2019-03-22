@@ -2,7 +2,6 @@ package crewworks.thederpgamer.main;
 
 import java.util.ArrayList;
 import thederpgamer.libraries.tools;
-import thederpgamer.crews.structure;
 //import block api
 
 public class crewHandler {
@@ -146,14 +145,13 @@ public class crewHandler {
         }
       } else if(buff == "BUFF_TURRET_TURNRATE") {
         turretBase.effect.addTurnRate(percent);
-        turretBase.effect.addDamage(percent * -0.07);
-        turretBase.effect.addReloadSpeed(percent * -0.07);
         if(weapons.contains(Block.BEAM_COMPUTER)) {
           for(x = 0, x == weapons.size(), x++) {
             Block currentWeapon = weapons[x];
             if(currentWeapon.getMaster != Block.BEAM_COMPUTER) {
               turretGun.effect.weapon.addProjectileSpeed(percent * -0.07);
             }
+            turretBase.effect.addTurnRate(percent);
           }
         }
       }
