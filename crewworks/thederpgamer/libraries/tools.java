@@ -2,7 +2,7 @@ package crewworks.thederpgamer.libraries;
 
 //import block api?
 
-public class tools {
+public class Tools {
   public static getDistance(Block block1, Block block2) {
     /** gets the distance between 2 blocks on an entity */
     int distx = abs(block1.getx - block2.getx);
