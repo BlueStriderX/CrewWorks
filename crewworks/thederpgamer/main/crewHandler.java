@@ -17,7 +17,7 @@ public class CrewHandler {
   public static void npcActivate(Entity npc, Block target) {
     /** makes an npc activate a logic block */
     Location npcLocation = npc.getLocation();
-    Block block1 = getBlockAt(npcLocation);
+    Block block1 = getBlocksAt(npcLocation);
     Block block2 = target;
     float distance = tools.getDistance(block1, block2);
     Entity entity = target.getEntity();
@@ -25,7 +25,7 @@ public class CrewHandler {
       npc.sendControllerMessage("I can't reach the target!");
       return;
     }
-    if(entity.getBlockAt(target) == Block.ACTIVATION_MODULE || entity.getBlockAt(target) == Block.BUTTON || entity.getBlockAt(target) == Block.SMALL_ACTIVATION_MODULE || entity.getBlockAt(target) == Block.SMALL_BUTTON) {
+    if(entity.getBlocksAt(target) == Blocks.ACTIVATION_MODULE || entity.getBlocksAt(target) == Blocks.BUTTON || entity.getBlocksAt(target) == Blocks.SMALL_ACTIVATION_MODULE || entity.getBlocksAt(target) == Blocks.SMALL_BUTTON) {
       target.setActivated(true);
     }
   }
@@ -50,17 +50,17 @@ public class CrewHandler {
   public static void npcBuffSystem(Entity npc, Block target, float percent) {
     /** makes an npc buff a specified system */
     Entity entity = target.getEntity();
-    Block block = entity.getBlockAt(target);
-    if(target == Block.POWER_REACTOR) {
+    Block block = entity.getBlocksAt(target);
+    if(target == Blocks.POWER_REACTOR) {
       entity.effect.system.addPowerRegen(percent);
       entity.effect.system.addPowerCapacity(percent * -0.25);
-    } else if(target == Block.POWER_STABILIZER) {
+    } else if(target == Blocks.POWER_STABILIZER) {
       entity.effect.system.addPowerCapacity(percent);
       entity.effect.system.addPowerRegen(percent * -0.25);
-    } else if(target == Block.SHIELD_REGENERATOR) {
+    } else if(target == Blocks.SHIELD_REGENERATOR) {
       entity.effect.system.addShieldRegen(percent);
       entity.effect.system.addShieldCapacity(percent * -0.25);
-    } else if(target == Block.SHIELD_CAPACITOR) {
+    } else if(target == Blocks.SHIELD_CAPACITOR) {
       entity.effect.system.addShieldCapacity(percent);
       entity.effect.system.addShieldRegen(percent * -0.25);
     } else {
@@ -70,8 +70,8 @@ public class CrewHandler {
   public static void npcBuffWeapon(Entity npc, Block target, float percent, String buff) {
     /** makes an npc buff a specified weapon */
     Entity entity = target.getEntity();
-    Block block = entity.getBlockAt(target);
-    if(target == Block.CANNON_COMPUTER) {
+    Block block = entity.getBlocksAt(target);
+    if(target == Blocks.CANNON_COMPUTER) {
       if(buff == "BUFF_RELOAD") { //buff cannon reload speed
         entity.effect.weapon.addReloadSpeed(percent);
         entity.effect.weapon.addDamage(percent * -0.25);
@@ -82,7 +82,7 @@ public class CrewHandler {
         entity.effect.weapon.addProjectileSpeed(percent); // buff cannon projectile speed
         entity.effect.weapon.addDamage(percent * -0.25)
       }
-    } else if(target == Block.BEAM_COMPUTER) {
+    } else if(target == Blocks.BEAM_COMPUTER) {
       if(buff == "BUFF_RELOAD") {
         entity.effect.weapon.addReloadSpeed(percent); //buff beam reload speed
         entity.effect.weapon.addDamage(percent * -0.25);
@@ -93,7 +93,7 @@ public class CrewHandler {
         entity.effect.weapon.addRange(percent);
         entity.effect.weapon.addDamage(percent * -0.25)
       }
-    } else if(target == Block.MISSILE_COMPUTER) {
+    } else if(target == Blocks.MISSILE_COMPUTER) {
       if(buff == "BUFF_RELOAD") { //buff missile reload speed
         entity.effect.weapon.addReloadSpeed(percent);
         entity.effect.weapon.addDamage(percent * -0.25);
@@ -112,8 +112,8 @@ public class CrewHandler {
   public static void npcBuffTurret(Entity npc, Block target, float percent, String buff) {
     /** makes an npc buff a specified turret */
     Entity entity = target.getEntity();
-    Block block = entity.getBlockAt(target);
-    if(target == Block.TURRET_DOCK) {
+    Block block = entity.getBlocksAt(target);
+    if(target == Blocks.TURRET_DOCK) {
       Entity turretBase = block.rail.getDockedEntity();
       Entity turretGun = turretBase.getDocked();
       ArrayList<System> weapons = new ArrayList<System>();
@@ -124,20 +124,20 @@ public class CrewHandler {
           turretGun.effect.weapon.addDamage(percent * -0.25)
         }
       } else if(buff == "BUFF_TURRET_DAMAGE") {
-        if(weapons.contains(Block.BEAM_COMPUTER)) {
+        if(weapons.contains(Blocks.BEAM_COMPUTER)) {
           for(x = 0, x == weapons.size(), x++) {
             Block currentWeapon = weapons[x];
             turretGun.effect.weapon.addDamage(percent);
-            if(currentWeapon.getMaster != Block.BEAM_COMPUTER) {
+            if(currentWeapon.getMaster != Blocks.BEAM_COMPUTER) {
               turretGun.effect.weapon.addProjectileSpeed(percent * -0.25);
             }
           }
         }
       } else if(buff == "BUFF_TURRET_PROJECTILE_SPEED") {
-        if(weapons.contains(Block.BEAM_COMPUTER)) {
+        if(weapons.contains(Blocks.BEAM_COMPUTER)) {
           for(x = 0, x == weapons.size(), x++) {
             Block currentWeapon = weapons[x];
-            if(currentWeapon.getMaster != Block.BEAM_COMPUTER) {
+            if(currentWeapon.getMaster != Blocks.BEAM_COMPUTER) {
               turretGun.effect.weapon.addProjectileSpeed(percent);
               turretGun.effect.weapon.addReloadSpeed(percent * -0.25);
             }
@@ -145,10 +145,10 @@ public class CrewHandler {
         }
       } else if(buff == "BUFF_TURRET_TURNRATE") {
         turretBase.effect.addTurnRate(percent);
-        if(weapons.contains(Block.BEAM_COMPUTER)) {
+        if(weapons.contains(Blocks.BEAM_COMPUTER)) {
           for(x = 0, x == weapons.size(), x++) {
             Block currentWeapon = weapons[x];
-            if(currentWeapon.getMaster != Block.BEAM_COMPUTER) {
+            if(currentWeapon.getMaster != Blocks.BEAM_COMPUTER) {
               turretGun.effect.weapon.addProjectileSpeed(percent * -0.07);
             }
             turretBase.effect.addTurnRate(percent);
