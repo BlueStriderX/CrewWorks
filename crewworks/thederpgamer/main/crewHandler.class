@@ -53,17 +53,17 @@ public class crewHandler {
     Entity entity = target.getEntity();
     Block block = entity.getBlockAt(target);
     if(target == Blocks.POWER_REACTOR) {
-      entity.effect.addPowerRegen(percent);
-      entity.effect.addPowerCapacity(percent * -0.25);
+      entity.effect.system.addPowerRegen(percent);
+      entity.effect.system.addPowerCapacity(percent * -0.25);
     } else if(target == Blocks.POWER_STABILIZER) {
-      entity.effect.addPowerCapacity(percent);
-      entity.effect.addPowerRegen(percent * -0.25);
+      entity.effect.system.addPowerCapacity(percent);
+      entity.effect.system.addPowerRegen(percent * -0.25);
     } else if(target == Blocks.SHIELD_REGENERATOR) {
-      entity.effect.addShieldRegen(percent);
-      entity.effect.addShieldCapacity(percent * -0.25);
+      entity.effect.system.addShieldRegen(percent);
+      entity.effect.system.addShieldCapacity(percent * -0.25);
     } else if(target == Blocks.SHIELD_CAPACITOR) {
-      entity.effect.addShieldCapacity(percent);
-      entity.effect.addShieldRegen(percent * -0.25);
+      entity.effect.system.addShieldCapacity(percent);
+      entity.effect.system.addShieldRegen(percent * -0.25);
     } else {
       npc.sendControllerMessage("There's nothing I can do with this system!");
     }
@@ -74,44 +74,90 @@ public class crewHandler {
     Block block = entity.getBlockAt(target);
     if(target == Blocks.CANNON_COMPUTER) {
       if(buff == "BUFF_RELOAD") { //buff cannon reload speed
-        weapon.effect.addReloadSpeed(percent);
-        weapon.effect.addDamage(percent * -0.25);
+        entity.effect.weapon.addReloadSpeed(percent);
+        entity.effect.weapon.addDamage(percent * -0.25);
       } else if(buff == "BUFF_DAMAGE") { //buff cannon damage
-        weapon.effect.addDamage(percent);
-        weapon.effect.addProjectileSpeed(percent * -0.25);
+        entity.effect.weapon.addDamage(percent);
+        entity.effect.weapon.addProjectileSpeed(percent * -0.25);
       } else if(buff == "BUFF_SPEED") {
-        weapon.effect.addProjectileSpeed(percent); // buff cannon projectile speed
-        weapon.effect.addDamage(percent * -0.25)
+        entity.effect.weapon.addProjectileSpeed(percent); // buff cannon projectile speed
+        entity.effect.weapon.addDamage(percent * -0.25)
       }
     } else if(target == Blocks.BEAM_COMPUTER) {
       if(buff == "BUFF_RELOAD") {
-        weapon.effect.addReloadSpeed(percent); //buff beam reload speed
-        weapon.effect.addDamage(percent * -0.25);
+        entity.effect.weapon.addReloadSpeed(percent); //buff beam reload speed
+        entity.effect.weapon.addDamage(percent * -0.25);
       } else if(buff == "BUFF_DAMAGE") { //buff beam damage
-        weapon.effect.addDamage(percent);
-        weapon.effect.addRange(percent * -0.25);
+        entity.effect.weapon.addDamage(percent);
+        entity.effect.weapon.addRange(percent * -0.25);
       } else if(buff == "BUFF_RANGE") { //buff beam range
-        weapon.effect.addRange(percent);
-        weapon.effect.addDamage(percent * -0.25)
+        entity.effect.weapon.addRange(percent);
+        entity.effect.weapon.addDamage(percent * -0.25)
       }
     } else if(target == Blocks.MISSILE_COMPUTER) {
       if(buff == "BUFF_RELOAD") { //buff missile reload speed
-        weapon.effect.addReloadSpeed(percent);
-        weapon.effect.addDamage(percent * -0.25);
+        entity.effect.weapon.addReloadSpeed(percent);
+        entity.effect.weapon.addDamage(percent * -0.25);
       } else if(buff == "BUFF_DAMAGE") { //buff missile damage
-        weapon.effect.addDamage(percent);
-        weapon.effect.addProjectileSpeed(percent * -0.25);
+        entity.effect.weapon.addDamage(percent);
+        entity.effect.weapon.addProjectileSpeed(percent * -0.25);
       } else if(buff == "BUFF_SPEED") { //buff missile projectile speed
-        weapon.effect.addProjectileSpeed(percent);
-        weapon.effect.addDamage(percent * -0.25)
+        entity.effect.weapon.addProjectileSpeed(percent);
+        entity.effect.weapon.addDamage(percent * -0.25)
       }
     } else {
       npc.sendControllerMessage("There's nothing I can do with this system!");
     }
   }
 
-  public static void npcBuffTurret(Entity npc, Block target) {
+  public static void npcBuffTurret(Entity npc, Block target, float percent, String buff) {
     //makes an npc buff a specified turret
-
+    Entity entity = target.getEntity();
+    Block block = entity.getBlockAt(target);
+    if(target == Blocks.TURRET_DOCK) {
+      Entity turretBase = block.rail.getDockedEntity();
+      Entity turretGun = turretBase.getDocked();
+      ArrayList<System> weapons = new ArrayList<System>();
+      weapons.add(turretGun.getWeapons);
+      if(buff == "BUFF_TURRET_RELOAD") {
+        for(x = 0, x == weapons.size(), x++) {
+          turretGun.effect.weapon.addReloadSpeed(percent);
+          turretGun.effect.weapon.addDamage(percent * -0.25)
+        }
+      } else if(buff == "BUFF_TURRET_DAMAGE") {
+        if(weapons.contains(Blocks.BEAM_COMPUTER)) {
+          for(x = 0, x == weapons.size(), x++) {
+            Block currentWeapon = weapons[x];
+            turretGun.effect.weapon.addDamage(percent);
+            if(currentWeapon.getMaster != Blocks.BEAM_COMPUTER) {
+              turretGun.effect.weapon.addProjectileSpeed(percent * -0.25);
+            }
+          }
+        }
+      } else if(buff == "BUFF_TURRET_PROJECTILE_SPEED") {
+        if(weapons.contains(Blocks.BEAM_COMPUTER)) {
+          for(x = 0, x == weapons.size(), x++) {
+            Block currentWeapon = weapons[x];
+            if(currentWeapon.getMaster != Blocks.BEAM_COMPUTER) {
+              turretGun.effect.weapon.addProjectileSpeed(percent);
+            }
+          }
+        }
+      } else if(buff == "BUFF_TURRET_TURNRATE") {
+        turretBase.effect.addTurnRate(percent);
+        turretBase.effect.addDamage(percent * -0.07);
+        turretBase.effect.addReloadSpeed(percent * -0.07);
+        if(weapons.contains(Blocks.BEAM_COMPUTER)) {
+          for(x = 0, x == weapons.size(), x++) {
+            Block currentWeapon = weapons[x];
+            if(currentWeapon.getMaster != Blocks.BEAM_COMPUTER) {
+              turretGun.effect.weapon.addProjectileSpeed(percent * -0.07);
+            }
+          }
+        }
+      }
+    } else {
+      npc.sendControllerMessage("That's not a Rail Turret!");
+    }
   }
 }
