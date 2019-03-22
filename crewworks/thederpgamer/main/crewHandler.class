@@ -1,13 +1,13 @@
 package crewworks.thederpgamer.main;
 
 import java.util.ArrayList;
-import thederpgamer.main.tools;
+import thederpgamer.libraries.tools;
 import thederpgamer.crews.structure;
 //import block api?
 
 public class crewHandler {
   public static void npcMove(Entity npc) {
-    //makes an npc move along a path
+    /** makes an npc move along a path */
     ArrayList<Location> pathBlocks = new ArrayList<Location>();
     for(x = 0, x == pathBlocks.size(), x++) {
       Location currentBlock = pathBlocks.get(x);
@@ -16,7 +16,7 @@ public class crewHandler {
   }
 
   public static void npcActivate(Entity npc, Block target) {
-    //makes an npc activate a logic block
+    /** makes an npc activate a logic block */
     Location npcLocation = npc.getLocation();
     Block block1 = getBlockAt(npcLocation);
     Block block2 = target;
@@ -32,7 +32,7 @@ public class crewHandler {
   }
 
   public static void npcAction(Entity npc, String action, Block target, float percent, String buff) {
-    //makes an npc perform a specified action
+    /** makes an npc perform a specified action */
     if(action == "ACTIVATE_LOGIC") {
       npcMove(npc);
       npcActivate(npc, target);
@@ -49,7 +49,7 @@ public class crewHandler {
   }
 
   public static void npcBuffSystem(Entity npc, Block target, float percent) {
-    //makes an npc buff a specified system
+    /** makes an npc buff a specified system */
     Entity entity = target.getEntity();
     Block block = entity.getBlockAt(target);
     if(target == Blocks.POWER_REACTOR) {
@@ -69,7 +69,7 @@ public class crewHandler {
     }
   }
   public static void npcBuffWeapon(Entity npc, Block target, float percent, String buff) {
-    //makes an npc buff a specified weapon
+    /** makes an npc buff a specified weapon */
     Entity entity = target.getEntity();
     Block block = entity.getBlockAt(target);
     if(target == Blocks.CANNON_COMPUTER) {
@@ -111,7 +111,7 @@ public class crewHandler {
   }
 
   public static void npcBuffTurret(Entity npc, Block target, float percent, String buff) {
-    //makes an npc buff a specified turret
+    /** makes an npc buff a specified turret */
     Entity entity = target.getEntity();
     Block block = entity.getBlockAt(target);
     if(target == Blocks.TURRET_DOCK) {
