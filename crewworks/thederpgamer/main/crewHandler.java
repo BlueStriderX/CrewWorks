@@ -1,10 +1,10 @@
 package crewworks.thederpgamer.main;
 
 import java.util.ArrayList;
-import thederpgamer.libraries.tools;
+import thederpgamer.libraries.Tools;
 //import block api
 
-public class crewHandler {
+public class CrewHandler {
   public static void npcMove(Entity npc) {
     /** makes an npc move along a path */
     ArrayList<Location> pathBlock = new ArrayList<Location>();
