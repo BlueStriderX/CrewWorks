@@ -140,6 +140,7 @@ public class crewHandler {
             Block currentWeapon = weapons[x];
             if(currentWeapon.getMaster != Blocks.BEAM_COMPUTER) {
               turretGun.effect.weapon.addProjectileSpeed(percent);
+              turretGun.effect.weapon.addReloadSpeed(percent * -0.25);
             }
           }
         }
