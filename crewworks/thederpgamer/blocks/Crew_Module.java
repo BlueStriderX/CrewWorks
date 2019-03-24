@@ -2,8 +2,8 @@ package crewworks.thederpgamer.blocks;
 
 import thederpgamer.libraries.Block;
 
-public class Crew_Module extends Block {
-  
+public class Crew_Module {
+
   public static void main() {
     Block CREW_MODULE = new Block();
     this.setBlockID("CREW_MODULE");
@@ -14,5 +14,6 @@ public class Crew_Module extends Block {
     this.setHitpoints();
     this.setArmor();
     this.setPrice();
+    this.setDescription();
   }
 }
