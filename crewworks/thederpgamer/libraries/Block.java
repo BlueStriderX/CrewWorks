@@ -42,6 +42,16 @@ public class Block {
   private static int kineticValue;
   private static int emValue;
   private static double factoryBakeValue;
+  private static int numberProduced;
+  private static boolean animated;
+  private static boolean transparent;
+  private static Block controller;
+  private static ArrayList<Block> controlling = new ArrayList<Block>();
+  private static boolean inShop;
+  private static boolean orientable;
+  private static boolean enterable;
+  private static int mass;
+  private static int volume;
 
   public static createCategory(String categoryName) {
     Element category = document.createElement("" + categoryName);
@@ -72,9 +82,9 @@ public class Block {
     }
   }
 
-  public static setRecipie(ArrayList<Block> recipie) {
-    for(x = 0, x <= recipie.size(), x++) {
-      textureIDs.add(x);
+  public static setRecipie(ArrayList<Block> blocks) {
+    for(x = 0, x <= blocks.size(), x++) {
+      recipie.add(x);
     }
   }
 
@@ -98,6 +108,48 @@ public class Block {
     double factoryBakeValue = time;
   }
 
+  public static setNumberProduced(int produced) {
+    int numberProduced = produced;
+  }
+
+  public static setAnimated(boolean bool) {
+    boolean animated = bool;
+  }
+
+  public static setTransparent(boolean bool) {
+    boolean transparent = bool;
+  }
+
+  public static setMaster(Block block) {
+    Block controller = block;
+  }
+
+  public static setSlaves(ArrayList<Integer> blocks) {
+    for(x = 0, x <= blocks.size(), x++) {
+      controlling.add(x);
+    }
+  }
+
+  public static inShop(boolean bool) {
+    boolean inShop = bool;
+  }
+
+  public static setOrientable(boolean bool) {
+    boolean orientable = bool;
+  }
+
+  public static setEnterable(boolean bool) {
+    boolean enterable = bool;
+  }
+
+  public static setMass(int weight) {
+    int mass = weight;
+  }
+
+  public static setVolume(int vol) {
+    int volume = vol;
+  }
+
   public static registerConfigs(Block block) {
     Element config = document.createElement("Config");
     document.appendChild(config);
@@ -116,14 +168,14 @@ public class Block {
 
     //Recipie
     Element recipieElement = document.createElement("Consistence");
-    block.appendChild(recipie);
+    block.appendChild(recipieElement);
 
     //Armor Value
     Element armorElement = document.createElement("ArmorValue");
 
     //Effect Armor
     Element effectArmorElement = document.createElement("EffectArmor");
-    block.appendChild(effectArmor);
+    block.appendChild(effectArmorElement);
 
     //Heat Armor
     Element heatElement = document.createElement("Heat");
@@ -157,6 +209,10 @@ public class Block {
     //Ask Schema what this means
 
     //Number Produced in Factory
+    Element producedElement = document.createElement("ProducedInFactory");
+    block.appendChild(descriptionElement);
+    Element producedText = document.createTextNode("" + numberProduced);
+    producedElement.appendChild(producedText);
 
     //Basic Resources Factory
     //Ask Schema what this means
@@ -171,17 +227,34 @@ public class Block {
     //Ask Schema if it is possible to make new inventory groups through configs
 
     //Animated
+    Element animatedElement = document.createElement("Animated");
+    block.appendChild(animatedElement);
+    Element animatedBool = document.createTextNode("" + animated);
+    animatedElement.appendChild(animatedBool);
 
     //StructureHPContribution
     //Probably has to do with integrity mechanic, ignore it for now because integrity is disabled by default
     //(Maybe add support in future?)
 
     //Transparency
+    Element transparencyElement = document.createElement("Transparency");
+    block.appendChild(transparencyElement);
+    Element transText = document.createTextNode("" + transparent);
+    transparencyElement.appendChild(transText);
 
     //In Shop
+    //If the block can be purchased
+    Element shopElement = document.createElement("InShop");
+    block.appendChild(shopElement);
+    Element shopText = document.createTextNode("" + inShop);
+    shopElement.appendChild(shopText);
 
     //Orientation
-    //Probably allows block to change oreintation
+    //Allows block to change orientation
+    Element orientationElement = document.createElement("Orientation");
+    block.appendChild(orientationElement);
+    Element orientationText = document.createTextNode("" + orientable);
+    orientationElement.appendChild(orientationText);
 
     //Block Computer Reference
     //Ask Schema what this means
@@ -247,12 +320,24 @@ public class Block {
 
     //Enterable
     //Allows for the block to be entered by the player, for weapon computers and such
+    Element enterableElement = document.createElement("Enterable");
+    block.appendChild(enterableElement);
+    Element enterableText = document.createTextNode("" + enterable);
+    enterableElement.appendChild(enterableText);
 
     //Mass
     //The block's mass
+    Element massElement = document.createElement("Mass");
+    block.appendChild(massElement);
+    Element massText = document.createTextNode("" + mass);
+    massElement.appendChild(massText);
 
     //Volume
     //How much storage space the block takes up
+    Element volumeElement = document.createElement("Volume");
+    block.appendChild(volumeElement);
+    Element volumeText = document.createTextNode("" + volume);
+    volumeElement.appendChild(volumeText);
 
     //Hitpoints
     //How much HP the block has, seperate from armor value
@@ -324,7 +409,25 @@ public class Block {
 
     //System Block
     //If the block is a system block? Ask Schema what this means
-    
+
+    //Controlled by
+    //The block that controls this block
+    Element controllerElement = document.createElement("ControlledBy");
+    block.appendChild(controllerElement);
+    Element controllerText = document.createTextNode("" + controller);
+    controllerElementText.appendChild(controllerText);
+
+    //Controlling
+    //The blocks that are controlled by this block
+    Element controllingElement = document.createElement("Controlling");
+    block.appendChild(controllingElement);
+    for(x = 0, x <= controlling.size(), x++) {
+      Element controllingElementText = document.createElement("Element");
+      controllingElement.appendChild(controllingElementText);
+      Element controllingText = document.createTextNode("" + controlling[x]);
+      controllingElementText.appendChild(controllingText);
+    }
+
     System.out.println("Successfuly registered " + customBlocks.size() + " blocks!");
   }
 }
